@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+        #myprogress {
+            display: none;
+        }
+
+        #mypropress_bar {
+            width: 0px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            color: white;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>监控文件读取进度</h1>
+    <fieldset>
+        <legend>监控文件读取进度</legend>
+        <p>请选择文件：<input type="file" value="请选择文件" onchange="showProgress(this)" /></p>
+        <div id="myprogress">
+            <div id="mypropress_bar">
+            </div>
+        </div>
+    </fieldset>
+    <script>
+        var myprogress = document.getElementById("myprogress");
+        var myprogress_bar = document.getElementById("myprogress_bar");
+        function showProgress(obj) {
+            var file = obj.files[0];
+            //对所选文件进行过滤
+            if (!file) {
+                alert("请选择文件！！！");
+                return false;
+            }
+            if (file.size >= 500 * 1024 * 1024) {
+                alert("请选择较小的文件，否则会造成浏览器崩溃");
+                return false;
+            }
+            //初始化进度体哦啊
+            myprogress_bar.style.width = "0%";
+            myprogress_bar.textContent = "0%";
+            创建filereader对象开始读取文件
+            var filereader = new FileReader();
+            //监控读取文件开始事件的监控
+            filereader.onloadstart = function () {
+                myprogress.style.display = "block";//将进度条设置为显示状态
+            }
+            //读取进行中事件  e会产生progress对象的事件
+            filereader.onprogress = function (e) {
+                //加载兆数/文件总大小
+                var p = Math.round(e.loaded / e.total);
+                //更新进度体
+                myprogress_bar.style.width = p + "%";
+                myprogress_bar.textContent = p + "%";
+            }
+            //读取完成事件监控
+            filereader.onload = function () {
+                //更新进度体
+                myprogress_bar.style.width = "100%";
+                myprogress_bar.textContent = "100%";
+            }
+            filereader.readAsBinaryString(file);
+        }
+    </script>
+</body>
+</html>

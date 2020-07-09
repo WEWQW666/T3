@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1>File对象的使用</h1>
+    <script>
+        var content = "中国加油，武汉加油";
+        var file = new File([content], "a.txt",
+            { type: "text/plain", lastModified: new Date() });//创建文件对象
+        document.write("文件名" + file.name);
+        document.write("类型" + file.type);
+        document.write("大小" + file.size);
+        document.write("最后修改时间：" + new Date(file.lastModified).toLocaleString())
+    </script>
+</body>
+</html>

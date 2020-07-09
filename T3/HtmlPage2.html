@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        .box {
+            width:250px;
+            padding:20px;
+            margin:10px;
+            border:2px dashed green;
+            float:left;
+        }
+        .bgbox {
+            width:200px;
+            height:100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="d1" class="box" ondragover="dragover(event)" ondrop="drop(event)">
+        <h1>选择颜色</h1>
+        <div id="dg1" style="background-color:red" class="bgbox" 
+             draggable="true" ondragstart="dragstart(event)"></div>
+        <div id="dg2" style="background-color:yellow" class="bgbox"
+             draggable="true" ondragstart="dragstart(event)"></div>
+        <div id="dg3" style="background-color:blue" class="bgbox"
+             draggable="true" ondragstart="dragstart(event)"></div>
+    </div>
+    <div id="d2" class="box" ondragover="dragover(event)" ondrop="drop(event)">
+        <h1>红色</h1>
+    </div>
+    <div id="d3" class="box" ondragover="dragover(event)" ondrop="drop(event)">
+        <h1>黄色</h1>
+    </div>
+    <div id="d4" class="box" ondragover="dragover(event)" ondrop="drop(event)">
+        <h1>选择颜色</h1>
+    </div>
+    <script>
+    //设置目标元素
+    function drop(e)
+    {
+        //1.从dataTransfer对象中获取被拖元素id
+        var eid = e.dataTransfer.getData("text");
+        //1.根据id生成对应被拖元素
+        var emp = document.getElementById(eid);
+        //3.将被拖元素作为子元素置入目标元素
+        e.target.appendChild(emp);
+    }
+    function dragover(e)
+    {
+        e.preventDefault();//关闭默认设置
+    }
+        //设置被拖元素开始拖放时需要执行的代码
+    function dragstart(e)
+    {
+        //将被拖放的元素id存储到dataTransfer对象
+        var eid = e.target.id;
+        e.dataTransfer.setData("text", eid);
+        
+    }
+    </script>
+</body>
+</html>

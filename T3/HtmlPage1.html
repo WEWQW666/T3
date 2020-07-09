@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        div {
+            width:300px;
+            padding:20px;
+            margin:10px;
+            border:2px dashed green;
+        }
+    </style>
+</head>
+<body>
+    <h1>HTML拖放</h1>
+    <div id="d1" ondragover="dragover(event)" ondrop="drop(event)">
+
+    </div>
+    <div id="d2" ondragover="dragover(event)" ondrop="drop(event)">
+        <img id="img1" src="img/2.jpg"  style="width:200px" draggable="true" ondragstart="dragstart(event)"/>
+    </div>
+    <script>
+    //设置目标元素
+    function drop(e)
+    {
+        //1.获取到被拖元素的id
+        var eid = e.dataTransfer.getData("text");
+        //2.根据id获取对应的被拖元素对象
+        var emp = document.getElementById(eid);
+        //3.将被拖元素做为子元素置入目标元素内部
+        e.target.appendChild(emp);
+    }
+    function dragover(e)
+    {
+        e.preventDefault();//关闭默认设置
+    }
+    //设置被拖元素开始拖放时需要执行的代码
+    function dragstart(e)
+    {
+            //1.获取被拖元素ID
+            var eid = e.target.id;
+            //2.获取dataTransfer对象
+            var dt = e.dataTransfer;
+            //3.被拖元素的id存储在dataTransfer对象
+        dt.setData("text", eid);
+
+
+
+    }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1>FileReader对象的readAsDataURL（）方法预览本地图片</h1>
+    <p>请选择图片文件：<input type="file" value="选择文件" multiple onchange="change(this)" /></p>
+    <div id="showArea">
+    </div>
+
+    <script>
+        function change(obj) {
+            var filelist = obj.files;//获取文件选择其中所选的所有文件集合
+            for (var i = 0; i < filelist.length; i++) {
+                var file = filelist[i];///获取下标对应的文件元素
+                if (file.type.indexOf("image") != -1) {
+                    var fileReader = new FileReader();//创建读取该文件的filereader对象
+                    fileReader.onload = function ()
+                    {
+                        console.log("文件读取完成");
+                        var span = document.createElement("span");
+                        span.innerHTML = '    <img src="' + this.result + '"  style="width:200px;padding:5px;"/>';
+                        var show = document.getElementById("showArea");
+                        show.appendChild(span);
+                    }
+                    fileReader.readAsDataURL(file);//启动filereader读取·+6
+                }
+            }
+        }
+    </script>
+</body>
+</html>

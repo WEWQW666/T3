@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        #showArea {
+            width:400px;
+            height:300px;
+            border:2px solid black;
+            overflow:auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>拖拽一组文件是，目标去的DataTransfer.files属性，返回一个FileList实例</h1>
+    <h4>将文件拖拽的当前区域欧</h4>
+    <div id="showArea" ondragover="dragover(event)" ondrop="drop(event)"> 
+
+    </div>
+    <script>
+        function dragover(e) {
+            e.preventDefault();
+    }
+    function drop(e) {
+        e.preventDefault();
+        //1.获取FileList实例
+        var html = "";
+        for (var i = 0; i < filelist.length; i++) {
+            html += "添加图片：" + filelist[i].name + "大小" + filelist[i].size+"B<br/>"
+        }
+        document.getElementById("showArea").innerHTML = html;
+    }
+    </script>
+</body>
+</html>
